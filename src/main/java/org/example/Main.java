@@ -14,18 +14,16 @@ public class Main {
         tx.begin();
 
         try {
-//            Member member = em.find(Member.class, 2L);
-            List<Member> memberList = em.createQuery("select m from Member as m", Member.class)
-                    .setFirstResult(1) // offset
-                    .setMaxResults(10) // limit
-                    .getResultList();
 
-            for (Member member : memberList) {
-                System.out.println("member.getName() = " + member.getName());
-            }
+            Member member = em.find(Member.class, 150L);
+            member.setName("ZZSZSZZ123133");
 
-//            em.persist(member);
-            tx.commit();
+            em.flush();
+
+            System.out.println("====================");
+
+
+            tx.commit(); // 이떄 db에 쿼리가 날라간다.
         } catch (Exception e) {
             tx.rollback();
         } finally {
