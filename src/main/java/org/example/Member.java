@@ -1,20 +1,34 @@
 package org.example;
 
+import com.sun.istack.Nullable;
+
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
-@Table(name = "Member")
 public class Member {
     @Id
     private Long id;
+    @Column(name = "name", nullable = false, columnDefinition = "varchar(100) default 'EMPTY'")
     private String name;
+    private Integer age;
 
-    public Member() {};
+    @Enumerated(EnumType.STRING)
+    private RoleType roleType;
 
-    public Member(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+    private LocalDateTime createdDate = LocalDateTime.now();
+    private LocalDate testDate = LocalDate.now();
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastModifiedDate;
+
+    @Lob // big contents
+    private String description;
+
+    @Transient
+    private int temp;
 
     public Long getId() {
         return id;
@@ -31,4 +45,39 @@ public class Member {
     public void setName(String name) {
         this.name = name;
     }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public RoleType getRoleType() {
+        return roleType;
+    }
+
+    public void setRoleType(RoleType roleType) {
+        this.roleType = roleType;
+    }
+
+
+    public Date getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(Date lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Member() {};
 }
